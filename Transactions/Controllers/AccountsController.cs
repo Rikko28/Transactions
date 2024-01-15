@@ -8,12 +8,10 @@ namespace Transactions.Presentation.Controllers;
 
 public class AccountsController(IMediator mediator) : ApiController
 {
-    private readonly IMediator _mediator = mediator;
-
     [HttpGet("{accountId}")]
     public async Task<IActionResult> GetAccount(int accountId)
     {
-        var result = await _mediator.Send(new GetAccountQuery(accountId));
+        var result = await mediator.Send(new GetAccountQuery(accountId));
         return Ok(result);
     }
 
@@ -26,7 +24,7 @@ public class AccountsController(IMediator mediator) : ApiController
     {
         try
         {
-            var id = await _mediator.Send(command);
+            var id = await mediator.Send(command);
             return Ok(id);
         }
         catch(IdNotFoundException ex)

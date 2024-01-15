@@ -8,7 +8,6 @@ namespace Transactions.Application.EventHandlers;
 
 public class UpdateAccountBalanceWhenTransactionCreatedDomainEventHandler(IDatabaseContext db) : INotificationHandler<TransactionCreatedDomainEvent>
 {
-    private readonly IDatabaseContext _db = db;
     public async Task Handle(TransactionCreatedDomainEvent notification, CancellationToken cancellationToken)
     {
         var account = await GetAccount(notification.Transaction.AccountId);
@@ -19,13 +18,13 @@ public class UpdateAccountBalanceWhenTransactionCreatedDomainEventHandler(IDatab
     private async Task UpdateAccountBalance(Account account)
     {
         const string sql = "UPDATE `account` SET `balance`=@Balance WHERE `id`=@Id";
-        await _db.Execute(sql, account);
+        await db.Execute(sql, account);
     }
 
     private async Task<Account> GetAccount(int accountId)
     {
         const string sql = "SELECT `id`,`user_id`,`balance` FROM `account` WHERE `id`=@Id";
-        var result = await _db.FirstOrDefault<Account>(sql, new {Id = accountId});
+        var result = await db.FirstOrDefault<Account>(sql, new {Id = accountId});
         if (result == null)
             throw new IdNotFoundException($"Cant update balance for account {accountId} because it doesn't exist");
         return result;

@@ -10,12 +10,10 @@ namespace Transactions.Controllers;
 
 public class TransactionsController(IMediator mediator) : ApiController
 {
-    private readonly IMediator _mediator = mediator;
-
     [HttpGet("{accountId}")]
     public async Task<IActionResult> GetAccountTransactions(int accountId)
     {
-        return Ok(await _mediator.Send(new GetTransactionsQuery(accountId)));
+        return Ok(await mediator.Send(new GetTransactionsQuery(accountId)));
     }
 
     [HttpPost]
@@ -23,7 +21,7 @@ public class TransactionsController(IMediator mediator) : ApiController
     {
         try
         {
-            return Ok(await _mediator.Send(command));
+            return Ok(await mediator.Send(command));
         }
         catch (Exception e) when (e is DomainException or IdNotFoundException)
         {

@@ -6,8 +6,6 @@ namespace Transactions.Application.Queries.TransactionQueries;
 
 public class GetTransactionsQueryHandler(IDatabaseContext db) : IRequestHandler<GetTransactionsQuery, IEnumerable<TransactionReadDto>>
 {
-    private readonly IDatabaseContext _db = db;
-
     public async Task<IEnumerable<TransactionReadDto>> Handle(GetTransactionsQuery request, CancellationToken cancellationToken)
     {
         const string sql = @"
@@ -15,6 +13,6 @@ public class GetTransactionsQueryHandler(IDatabaseContext db) : IRequestHandler<
             FROM `transaction`
             WHERE `account_id`=@Id
         ";
-        return await _db.GetMany<TransactionReadDto>(sql, new { Id = request.AccountId });
+        return await db.GetMany<TransactionReadDto>(sql, new { Id = request.AccountId });
     }
 }

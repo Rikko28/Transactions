@@ -5,8 +5,6 @@ using Transactions.Application.SeedWork.Interfaces;
 namespace Transactions.Application.Queries.AccountQueries;
 public class GetAccountQueryHandler(IDatabaseContext db) : IRequestHandler<GetAccountQuery, AccountReadDto?>
 {
-    private readonly IDatabaseContext _db = db;
-
     public async Task<AccountReadDto?> Handle(GetAccountQuery request, CancellationToken cancellationToken)
     {
         const string sql = @"
@@ -15,6 +13,6 @@ public class GetAccountQueryHandler(IDatabaseContext db) : IRequestHandler<GetAc
                     JOIN `user` ON `user`.`id`=`account`.`user_id`
                     WHERE `account`.`id`=@Id
         ";
-        return await _db.FirstOrDefault<AccountReadDto>(sql, new { request.Id });
+        return await db.FirstOrDefault<AccountReadDto>(sql, new { request.Id });
     }
 }

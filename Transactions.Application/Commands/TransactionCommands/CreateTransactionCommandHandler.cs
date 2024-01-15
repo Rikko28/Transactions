@@ -14,9 +14,6 @@ namespace Transactions.Application.Commands.TransactionCommands;
 // ALSO using repository would remove sql from here.
 public class CreateTransactionCommandHandler(IDatabaseContext db, IMediator mediator) : IRequestHandler<CreateTransactionCommand, int>
 {
-    private readonly IDatabaseContext _db = db;
-    private readonly IMediator _mediator = mediator;
-
     public async Task<int> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
     {
         var transaction = Transaction.Create(request.TransactionTypeId, request.AccountId, request.Amount, request.TransferAccountId);
@@ -38,7 +35,7 @@ public class CreateTransactionCommandHandler(IDatabaseContext db, IMediator medi
     private async Task<int> CreateTransaction(Transaction transaction)
     {
         var id = await InsertTransaction(transaction);
-        await _mediator.Publish(new TransactionCreatedDomainEvent(transaction));
+        await mediator.Publish(new TransactionCreatedDomainEvent(transaction));
         return id;
     }
 
@@ -48,7 +45,7 @@ public class CreateTransactionCommandHandler(IDatabaseContext db, IMediator medi
             INSERT INTO `transaction` (`transaction_type_id`,`account_id`,`amount`,`date`,`transfer_account_id`)
             VALUES (@Type,@AccountId,@Amount,@Date,@TransferAccountId); SELECT last_insert_rowid();
         ";
-        return await _db.FirstOrDefault<int>(sql, new
+        return await db.FirstOrDefault<int>(sql, new
         {
             Type = (int)transaction.TransactionType,
             transaction.AccountId,
