@@ -14,14 +14,20 @@ What i tought that account would be root object and transactions would be accoun
   </h1>
 </ol>
 <p>
-  Everything there should be clear. Only POST Transaction:
-  REQUIRED transactionTypeId:
+  Everything there should be clear. Only POST Transaction:<br/><br/>
+  <b>REQUIRED</b> transactionTypeId:
+    <br/>
     1 - deposit,
+    <br/>
     2 - withdrawal,
+    <br/>
     3 - transfer.
-  REQUIRED accountId.
-  RQUIRED amount.
-  REQUIRED IF transactionTypeId=3 transferAccountId
+     <br/>
+  <b>REQUIRED</b> accountId.
+   <br/>
+  <b>REQUIRED</b> amount.
+   <br/>
+  <b>REQUIRED IF transactionTypeId=3</b> transferAccountId
 </p>
 <p>I could write this docs with summaries and xmls, but i know only theory and never done that before.(saved some time)</p>
 
