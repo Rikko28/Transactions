@@ -23,7 +23,6 @@ public class AccountsController(IMediator mediator) : ApiController
         try
         {
             var id = await _mediator.Send(command);
-
             return Ok(id);
         }
         catch(IdNotFoundException ex)
