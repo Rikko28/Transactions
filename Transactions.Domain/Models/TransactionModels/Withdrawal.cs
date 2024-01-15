@@ -4,7 +4,7 @@ public class Withdrawal(int accountId, decimal amount) : Transaction(Transaction
 {
     public override int? TransferAccountId => null;
 
-    public override decimal? TransferAmount => -Amount;
+    public override decimal TransferAmount => -Amount;
 
     public override decimal Modify(decimal balance)
     {

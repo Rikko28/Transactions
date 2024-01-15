@@ -5,7 +5,7 @@ public class SenderTransfer(int accountId, decimal amount, int transferAccountId
 
     public override int? TransferAccountId => transferAccountId;
 
-    public override decimal? TransferAmount => -Amount;
+    public override decimal TransferAmount => -Amount;
 
     public override decimal Modify(decimal balance)
     {

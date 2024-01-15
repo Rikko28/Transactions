@@ -23,7 +23,7 @@ public abstract class Transaction
     public int AccountId { get; protected set; }
     public DateTime Date { get; init; }
     public abstract int? TransferAccountId { get; }
-    public abstract decimal? TransferAmount { get; }
+    public abstract decimal TransferAmount { get; }
 
     public static Transaction Create(int typeId, int accountId, decimal amount, int? transferAccountId = null)
     {

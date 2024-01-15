@@ -4,7 +4,7 @@ public class Deposit(int accountId, decimal amount) : Transaction(TransactionTyp
 {
     public override int? TransferAccountId => null;
 
-    public override decimal? TransferAmount => Amount;
+    public override decimal TransferAmount => Amount;
 
     public override decimal Modify(decimal balance)
     {
