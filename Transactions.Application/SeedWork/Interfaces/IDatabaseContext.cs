@@ -9,5 +9,6 @@ public interface IDatabaseContext
 
     Task<int> Execute(string sql, object? param = null);
     Task<T?> FirstOrDefault<T>(string sql, object? param = null);
+    Task<IEnumerable<T>> GetMany<T>(string sql, object? param = null);
 }
 

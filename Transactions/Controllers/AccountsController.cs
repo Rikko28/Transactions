@@ -17,6 +17,10 @@ public class AccountsController(IMediator mediator) : ApiController
         return Ok(result);
     }
 
+    // REFACTOR NOTES
+    // Instead of using try catch we can create exception handling middleware so we return user friendly exception messages instead of this.
+    // Catch known exception - return badrequest(msg),
+    // Catch all exceptions - return 500 error with "please try again".
     [HttpPost]
     public async Task<IActionResult> CreateAccount(CreateAccountCommand command)
     {

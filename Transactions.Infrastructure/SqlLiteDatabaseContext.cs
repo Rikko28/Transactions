@@ -78,8 +78,12 @@ public class SqlLiteDatabaseContext : IDatabaseContext, IDisposable
 
     public async Task<int> Execute(string sql, object? param = null)
     {
-        var result = await _connection.ExecuteAsync(sql, param, _transaction);
-        return result;
+        return await _connection.ExecuteAsync(sql, param, _transaction);
+    }
+
+    public async Task<IEnumerable<T>> GetMany<T>(string sql, object? param = null)
+    {
+        return await _connection.QueryAsync<T>(sql, param, _transaction);
     }
 
     public void Dispose()
