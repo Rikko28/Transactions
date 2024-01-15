@@ -14,8 +14,4 @@
     <ProjectReference Include="..\Transactions.Domain\Transactions.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Commands\" />
-  </ItemGroup>
-
 </Project>
